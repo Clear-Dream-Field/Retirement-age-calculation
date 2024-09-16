@@ -1,3 +1,12 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // 检查本地存储中的主题偏好
+    const savedTheme = localStorage.getItem('darkTheme');
+    if (savedTheme === 'true') {
+        toggleTheme();
+    }
+    updateTime();
+});
+
 document.getElementById('retirementForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const type = document.getElementById('type').value;
@@ -13,12 +22,13 @@ document.getElementById('retirementForm').addEventListener('submit', function(e)
 
     const resultElement = document.getElementById('result');
     resultElement.innerHTML = `
-        <p>退休年龄：${result.retirementAge}</p>
-        <p>退休时间：${result.retirementTime}</p>
-        <p>延迟退休：${result.delayMonths}</p>
+        <p class="retirement-age theme-text">退休年龄：${result.retirementAge}</p>
+        <p class="retirement-info theme-text">退休时间：${result.retirementTime}</p>
+        <p class="retirement-info theme-text">延迟退休：${result.delayMonths}</p>
     `;
     resultElement.style.display = 'block';
     scrollToResult();
+    updateResultTheme(); // 添加这行来更新结果的主题
 });
 
 // 添加输入验证
@@ -48,7 +58,6 @@ function addMonths(date, months) {
     newDate.setMonth(newDate.getMonth() + months);
     return newDate;
 }
-
 
 function calculateRetirement(type, yearOfBirth, monthOfBirth) {
     let retirementAge, retirementTime, delayMonths;
@@ -119,19 +128,104 @@ const infoButton = document.getElementById("infoButton");
 // 获取关闭模态框的按钮元素
 const closeModal = document.getElementById("closeModal");
 
-// 点击按钮打开模态框 
+// 修改打开模态框的函数
 infoButton.onclick = function() {
     modal.style.display = "block";
+    setTimeout(() => {
+        modal.classList.add('show');
+    }, 10);
+}
+
+// 修改关闭模态框的函数
+function closeModalWithAnimation() {
+    modal.classList.remove('show');
+    setTimeout(() => {
+        modal.style.display = "none";
+    }, 300); // 等待过渡动画完成
 }
 
 // 点击 "我知道了" 按钮关闭模态框
-closeModal.onclick = function() {
-    modal.style.display = "none";
-}
+closeModal.onclick = closeModalWithAnimation;
 
 // 在用户点击模态框外区域时，关闭它
 window.onclick = function(event) {
     if (event.target == modal) {
-        modal.style.display = "none";
+        closeModalWithAnimation();
     }
+}
+
+function updateTime() {
+    const now = new Date();
+    const dateString = now.toLocaleDateString('zh-CN', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric'
+    });
+    const weekdayString = now.toLocaleDateString('zh-CN', { weekday: 'long' });
+    const timeString = now.toLocaleTimeString('zh-CN', { 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit',
+        hour12: false // 设置为24小时制
+    });
+    const dateElement = document.getElementById('current-date');
+    const weekdayElement = document.getElementById('current-weekday');
+    const timeElement = document.getElementById('current-time');
+    dateElement.textContent = dateString;
+    weekdayElement.textContent = weekdayString;
+    timeElement.textContent = timeString;
+    
+    // 添加可点击的样式
+    dateElement.style.cursor = 'pointer';
+    timeElement.style.cursor = 'pointer';
+}
+
+// 每秒更新一次时间
+setInterval(updateTime, 1000);
+
+// 初始化时立即更新一次时间
+updateTime();
+
+// 确保在 DOM 加载完成后执行
+document.addEventListener('DOMContentLoaded', function() {
+    updateTime();
+});
+
+let isDarkTheme = false;
+
+function toggleTheme() {
+    isDarkTheme = !isDarkTheme;
+    document.body.classList.toggle('dark-theme', isDarkTheme);
+    
+    // 更新主题状态文本
+    const themeStatus = document.getElementById('theme-status');
+    themeStatus.textContent = isDarkTheme ? '当前主题：黑夜' : '当前主题：白天';
+
+    // 保存主题偏好到本地存储
+    localStorage.setItem('darkTheme', isDarkTheme);
+
+    updateResultTheme(); // 添加这行
+}
+
+// 为整个右侧卡片添加点击事件监听器
+document.getElementById('result-right').addEventListener('click', toggleTheme);
+
+// 在 DOMContentLoaded 事件中添加以下代码
+document.addEventListener('DOMContentLoaded', function() {
+    // 检查本地存储中的主题偏好
+    const savedTheme = localStorage.getItem('darkTheme');
+    if (savedTheme === 'true') {
+        toggleTheme();
+    }
+    updateTime();
+});
+
+// 添加以下函数
+function updateResultTheme() {
+    const isDark = document.body.classList.contains('dark-theme');
+    const themeTexts = document.querySelectorAll('#result .theme-text');
+    
+    themeTexts.forEach(text => {
+        text.style.color = isDark ? '#ffffff' : '#333333';
+    });
 }

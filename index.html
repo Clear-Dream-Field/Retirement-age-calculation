@@ -2,7 +2,10 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
     <title>退休年龄计算器</title>
     <!-- Favicon -->
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
@@ -29,7 +32,19 @@
         <input type="number" id="monthOfBirth" required min="1" max="12">
         <button type="submit">计算</button>
     </form>
-    <div id="result"></div>
+    <div id="resultContainer">
+        <div class="card glass-effect" id="result-left">
+            <h3>计算结果</h3>
+            <div id="result"></div>
+        </div>
+        <div class="card glass-effect" id="result-right">
+            <div id="current-date"></div>
+            <div id="current-weekday"></div>
+            <div id="current-time"></div>
+            <div id="theme-status">当前主题：白天</div>
+            <div id="theme-toggle-hint">点击卡片切换主题</div>
+        </div>
+    </div>
     <footer>
         <p>&copy; 2024 退休年龄计算器.  <button id="infoButton" aria-label="更多信息"><i class="fas fa-info-circle"></i></button></p>
     </footer>
@@ -37,7 +52,7 @@
         <div class="modal-content">
             <h2>关于退休年龄计算器</h2>
             <p>说明：<br>
-                按照<a href="https://www.mohrss.gov.cn/SYrlzyhshbzb/ztzl/zt202409/qwfb/202409/t20240913_525781.html">《关于实施渐进式延迟法定退休年龄的决定》</a>附表对照关系，您通过法定退休年龄计算器，选择出生年月、性别及人员类型，即可计算出对应的改革后法定退休年龄、改革后退休时间、延迟月数。</p>
+                按照<a href="https://www.mohrss.gov.cn/SYrlzyhshbzb/ztzl/zt202409/qwfb/202409/t20240913_525781.html" target="_blank">《关于实施渐进式延迟法定退休年龄的决定》</a>附表对照关系，您通过法定退休年龄计算器，选择出生年月、性别及人员类型，即可计算出对应的改革后法定退休年龄、改革后退休时间、延迟月数。</p>
             <button id="closeModal">我知道了</button>
         </div>
     </div>
