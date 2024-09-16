@@ -9,7 +9,8 @@
 这个项目实现了一个简单的退休年龄时间计算器。
 
 ## **实现效果**
-![20240915225437739](https://github.com/user-attachments/assets/d8e7ea19-92dd-4c29-9450-5b0e8551da83)
+
+![20240916-203713](https://github.com/user-attachments/assets/1ccb2952-cda4-4cf3-b2ac-e6b43eb6ad4d)
 
 ## **部署**
 
