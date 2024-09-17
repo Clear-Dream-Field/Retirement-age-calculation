@@ -2,7 +2,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // 检查本地存储中的主题偏好
     const savedTheme = localStorage.getItem('darkTheme');
     if (savedTheme === 'true') {
-        toggleTheme();
+        toggleTheme(true);
+    } else if (savedTheme === 'false') {
+        toggleTheme(false);
+    } else {
+        checkTimeAndSetTheme();  // 如果没有保存的偏好，根据时间设置主题
     }
     updateTime();
 });
@@ -128,7 +132,7 @@ const infoButton = document.getElementById("infoButton");
 // 获取关闭模态框的按钮元素
 const closeModal = document.getElementById("closeModal");
 
-// 修改打开模态框的函数
+// 修改打开模态框函数
 infoButton.onclick = function() {
     modal.style.display = "block";
     setTimeout(() => {
@@ -162,12 +166,18 @@ function updateTime() {
         day: 'numeric'
     });
     const weekdayString = now.toLocaleDateString('zh-CN', { weekday: 'long' });
-    const timeString = now.toLocaleTimeString('zh-CN', { 
+    let timeString = now.toLocaleTimeString('zh-CN', { 
         hour: '2-digit', 
         minute: '2-digit', 
         second: '2-digit',
-        hour12: false // 设置为24小时制
+        hour12: false
     });
+
+    // 将 24:00:00 改为 0:00:00
+    if (timeString === '24:00:00') {
+        timeString = '0:00:00';
+    }
+
     const dateElement = document.getElementById('current-date');
     const weekdayElement = document.getElementById('current-weekday');
     const timeElement = document.getElementById('current-time');
@@ -193,31 +203,55 @@ document.addEventListener('DOMContentLoaded', function() {
 
 let isDarkTheme = false;
 
-function toggleTheme() {
-    isDarkTheme = !isDarkTheme;
-    document.body.classList.toggle('dark-theme', isDarkTheme);
-    
-    // 更新主题状态文本
-    const themeStatus = document.getElementById('theme-status');
-    themeStatus.textContent = isDarkTheme ? '当前主题：黑夜' : '当前主题：白天';
+function toggleTheme(forceDark = null) {
+    const newTheme = forceDark !== null ? forceDark : !isDarkTheme;
+    if (newTheme !== isDarkTheme) {
+        isDarkTheme = newTheme;
+        document.body.classList.toggle('dark-theme', isDarkTheme);
+        
+        // 更新主题状态文本
+        const themeStatus = document.getElementById('theme-status');
+        themeStatus.textContent = isDarkTheme ? '当前主题：黑夜' : '当前主题：白天';
 
-    // 保存主题偏好到本地存储
-    localStorage.setItem('darkTheme', isDarkTheme);
+        // 保存主题偏好到本地存储
+        localStorage.setItem('darkTheme', isDarkTheme);
 
-    updateResultTheme(); // 添加这行
+        updateResultTheme();
+    }
 }
 
-// 为整个右侧卡片添加点击事件监听器
-document.getElementById('result-right').addEventListener('click', toggleTheme);
+function checkTimeAndSetTheme() {
+    const now = new Date();
+    const hour = now.getHours();
+    
+    if (hour >= 20 || hour < 7) {
+        toggleTheme(true);  // 强制切换到黑夜模式
+    } else {
+        toggleTheme(false);  // 强制切换到白天模式
+    }
+}
 
-// 在 DOMContentLoaded 事件中添加以下代码
+// 每分钟检查一次时间并设置主题
+setInterval(checkTimeAndSetTheme, 60000);
+
+// 在页面加载时立即检查时间并设置主题
 document.addEventListener('DOMContentLoaded', function() {
     // 检查本地存储中的主题偏好
     const savedTheme = localStorage.getItem('darkTheme');
     if (savedTheme === 'true') {
-        toggleTheme();
+        toggleTheme(true);
+    } else if (savedTheme === 'false') {
+        toggleTheme(false);
+    } else {
+        checkTimeAndSetTheme();  // 如果没有保存的偏好，根据时间设置主题
     }
     updateTime();
+});
+
+// 为整个右侧卡片添加点击事件监听器
+document.getElementById('result-right').addEventListener('click', function() {
+    toggleTheme();
+    localStorage.setItem('darkTheme', isDarkTheme);  // 手动切换时保存偏好
 });
 
 // 添加以下函数
