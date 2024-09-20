@@ -10,7 +10,8 @@
 
 ## **实现效果**
 
-![20240916-203713](https://github.com/user-attachments/assets/1ccb2952-cda4-4cf3-b2ac-e6b43eb6ad4d)
+![退休年龄计算器](https://github.com/user-attachments/assets/1f8ad25c-b4f5-463b-8afe-2909327d5611)
+
 
 ## **部署**
 
