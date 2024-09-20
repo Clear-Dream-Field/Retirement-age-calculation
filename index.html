@@ -6,6 +6,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="format-detection" content="telephone=no">
+    <meta name="description" content="根据最新政策，帮助用户计算退休年龄和退休时间的在线工具。适用于男职工、女职工等不同类型人员。">
+    <meta name="keywords" content="退休年龄计算器,退休时间,法定退休年龄,渐进式延迟,退休政策">
     <title>退休年龄计算器</title>
     <!-- Favicon -->
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
@@ -17,7 +19,9 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <h1>退休年龄计算器</h1>
+    <div class="title-container">
+        <h1>退休年龄计算器</h1>
+    </div>
     <p class="description">根据<a href="https://www.mohrss.gov.cn/SYrlzyhshbzb/ztzl/zt202409/qwfb/202409/t20240913_525781.html" target="_blank">最新政策</a>，帮助用户计算退休年龄和退休时间的工具。</p>
     <form id="retirementForm">
         <label for="type">人员类型<span class="required">*</span></label>
@@ -32,6 +36,15 @@
         <input type="number" id="monthOfBirth" required min="1" max="12">
         <button type="submit">计算</button>
     </form>
+    <div id="weatherInfo" class="weather-info">
+        <h3>天气信息</h3>
+        <div id="holidayInfo"></div>
+    </div>
+    <div id="loadingSpinner" style="display: none; text-align: center; margin: 20px 0;">
+        <div class="spinner-container">
+            <i class="fas fa-spinner fa-spin fa-3x"></i>
+        </div>
+    </div>
     <div id="resultContainer">
         <div class="card glass-effect" id="result-left">
             <h3>计算结果</h3>
@@ -51,7 +64,7 @@
     <div id="modal" class="modal">
         <div class="modal-content">
             <h2>关于退休年龄计算器</h2>
-            <p>说明：<br>
+            <p>说：<br>
                 按照<a href="https://www.mohrss.gov.cn/SYrlzyhshbzb/ztzl/zt202409/qwfb/202409/t20240913_525781.html" target="_blank">《关于实施渐进式延迟法定退休年龄的决定》</a>附表对照关系，您通过法定退休年龄计算器，选择出生年月、性别及人员类型，即可计算出对应的改革后法定退休年龄、改革后退休时间、延迟月数。</p>
             <button id="closeModal">我知道了</button>
         </div>

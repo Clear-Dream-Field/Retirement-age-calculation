@@ -6,20 +6,45 @@
 
 body {
     font-family: 'HarmonyOS_Regular', 'Helvetica Neue', Arial, sans-serif;
-    max-width: 600px; /* 恢复固定最大宽度 */
+    max-width: 600px;
     margin: 0 auto;
     padding: 20px 15px;
-    background-color: #eff1f3; /* 修改这里 */
-    color: #2c3e50;
+    background-color: #eff1f3;
+    background-image: url('../img/bg.svg');
+    background-repeat: no-repeat;
+    background-size: 1900px 790px;
+    background-position: right -50px top -20px;
+    color: #3a3a3a;
     line-height: 1.5;
+    user-select: none;
+}
+
+.title-container {
+    margin-bottom: 20px;
+}
+
+body:not(.dark-theme) .title-container {
+    background-color: transparent;
+    box-shadow: none;
 }
 
 h1 {
-    color: #2980b9;
     text-align: center;
-    margin-bottom: 20px;
+    margin: 0;
     font-size: 2rem;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* 浅色主题样式 */
+body:not(.dark-theme) h1 {
+    color: #333333;
+}
+
+/* 深色主题样式 */
+body.dark-theme h1 {
+    color: #ecf0f1;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.1);
 }
 
 .description {
@@ -41,18 +66,6 @@ h1 {
     text-decoration: underline;
 }
 
-body.dark-theme .description {
-    color: #ffffff; /* 深色主题下的颜色，改为白色 */
-}
-
-body.dark-theme .description a {
-    color: #3498db; /* 深色主题下链接颜色，保持蓝色 */
-}
-
-body.dark-theme .description a:hover {
-    color: #5dade2; /* 深色主题下链接悬停颜色，稍微变亮 */
-}
-
 form {
     background-color: #ffffff;
     padding: 20px;
@@ -64,7 +77,7 @@ form {
 label {
     display: block;
     margin-bottom: 5px;
-    color: #34495e;
+    color: #282d31;
     font-size: 1rem;
     font-weight: 500;
 }
@@ -114,7 +127,7 @@ button:active {
     justify-content: space-between;
     margin-top: 20px;
     gap: 20px;
-    align-items: flex-start; /* 顶部对齐 */
+    align-items: flex-start;
 }
 
 .card {
@@ -122,7 +135,7 @@ button:active {
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 添加黑色阴影 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 #result-left, #result-right {
@@ -137,15 +150,13 @@ button:active {
     position: relative;
     overflow: visible;
     padding-top: 15px;
-    height: auto;
-    min-height: 220px;
 }
 
 #result-left h3 {
     margin-bottom: 10px;
-    color: #2980b9;
     font-size: 1.2rem;
     text-align: center;
+    transition: color 0.3s ease;
 }
 
 #result {
@@ -155,7 +166,6 @@ button:active {
     padding: 15px 0;
     margin-top: 0;
     font-family: 'HarmonyOS_Regular', sans-serif;
-    color: #333;
     transition: all 0.3s ease;
     flex-grow: 1;
     overflow-y: visible;
@@ -167,19 +177,12 @@ button:active {
     font-size: 1rem;
     line-height: 1.4;
     text-shadow: none;
-    color: #333;
     font-weight: normal;
+    transition: color 0.3s ease;
 }
 
-#result p:first-child {
-    font-weight: bold;
-    color: #333333;
-}
-
-#result p:nth-child(2),
-#result p:nth-child(3) {
-    font-weight: bold;
-    color: #333;
+#result .theme-text {
+    transition: color 0.3s ease;
 }
 
 #result-right {
@@ -222,73 +225,6 @@ button:active {
     font-size: 0.7em;
     margin-top: 0.1em;
     margin-bottom: 0.2em;
-}
-
-body.dark-theme #current-date,
-body.dark-theme #current-weekday,
-body.dark-theme #current-time {
-    color: #ffffff;
-}
-
-body.dark-theme {
-    background-color: #17171a;
-    color: #ecf0f1;
-}
-
-body.dark-theme .card {
-    background-color: #2c3e50;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* 深色主题下的阴影稍微加深 */
-}
-
-body.dark-theme #result {
-    background: transparent;
-    color: #ecf0f1;
-}
-
-body.dark-theme #result p {
-    color: #ecf0f1;
-}
-
-body.dark-theme #result p:first-child,
-body.dark-theme #result p:nth-child(2),
-body.dark-theme #result p:nth-child(3) {
-    color: #ffffff;
-}
-
-body.dark-theme h1,
-body.dark-theme h3 {
-    color: #3498db;
-}
-
-body.dark-theme form {
-    background-color: rgba(44, 62, 80, 0.7);
-    color: #ecf0f1;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-body.dark-theme label {
-    color: #ecf0f1;
-}
-
-body.dark-theme input, 
-body.dark-theme select {
-    background-color: #34495e;
-    color: #ecf0f1;
-    border-color: #7f8c8d;
-}
-
-body.dark-theme input:focus, 
-body.dark-theme select:focus {
-    border-color: #3498db;
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
-}
-
-body.dark-theme button[type="submit"] {
-    background-color: #2980b9;
-}
-
-body.dark-theme button[type="submit"]:hover {
-    background-color: #3498db;
 }
 
 footer {
@@ -364,8 +300,17 @@ footer {
 }
 
 .modal-content h2 {
-    color: #2980b9;
     transition: color 0.3s;
+}
+
+/* 浅色主题样式 */
+body:not(.dark-theme) .modal-content h2 {
+    color: #333333;
+}
+
+/* 深色主题样式 */
+body.dark-theme .modal-content h2 {
+    color: #ecf0f1;
 }
 
 .modal-content p {
@@ -387,13 +332,107 @@ footer {
     text-decoration: underline;
 }
 
-body.dark-theme .modal-content {
-    background-color: #2c3e50;
+.required {
+    color: #e74c3c;
+    margin-left: 3px;
+}
+
+.spinner-container {
+    position: relative;
+    display: inline-block;
+}
+
+.countdown {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 深色主题样式 */
+body.dark-theme {
+    background-color: #17171a;
+    background-image: url('../img/bg.svg');
+    background-repeat: no-repeat;
+    background-size: 1900px 790px;
+    background-position: right -50px top -20px;
     color: #ecf0f1;
 }
 
-body.dark-theme .modal-content h2 {
+body.dark-theme .description {
+    color: #ffffff;
+}
+
+body.dark-theme .description a {
     color: #3498db;
+}
+
+body.dark-theme .description a:hover {
+    color: #5dade2;
+}
+
+body.dark-theme .card {
+    background-color: #3a3a3a;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-theme #result-left h3 {
+    color: #3498db;
+}
+
+body.dark-theme #result {
+    background: transparent;
+    color: #ecf0f1;
+}
+
+body.dark-theme #current-date,
+body.dark-theme #current-weekday,
+body.dark-theme #current-time {
+    color: #ffffff;
+}
+
+body.dark-theme h1,
+body.dark-theme h3 {
+    color: #ecf0f1;
+}
+
+body.dark-theme form {
+    background-color: #3a3a3a;
+    color: #ecf0f1;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+body.dark-theme label {
+    color: #ecf0f1;
+}
+
+body.dark-theme input, 
+body.dark-theme select {
+    background-color: #282d31;
+    color: #ecf0f1;
+    border-color: #7f8c8d;
+}
+
+body.dark-theme input:focus, 
+body.dark-theme select:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+}
+
+body.dark-theme button[type="submit"] {
+    background-color: #2980b9;
+}
+
+body.dark-theme button[type="submit"]:hover {
+    background-color: #3498db;
+}
+
+body.dark-theme .modal-content {
+    background-color: #3a3a3a;
+    color: #ecf0f1;
 }
 
 body.dark-theme .modal-content p {
@@ -417,18 +456,19 @@ body.dark-theme #closeModal:hover {
     background-color: #2980b9;
 }
 
-.required {
-    color: #e74c3c;
-    margin-left: 3px;
+body.dark-theme .countdown {
+    color: #fff;
 }
 
-.modal-content p {
-    text-align: left;
-    line-height: 1.6;
-    margin-bottom: 15px;
+body.dark-theme #result .theme-text {
+    color: #ffffff;
 }
 
-/* 添加媒体查询以在不同屏幕尺寸下调整基础字体大小 */
+body:not(.dark-theme) #result .theme-text {
+    color: #333333;
+}
+
+/* 响应式设计 */
 @media screen and (max-width: 400px) {
     #result-right {
         font-size: 14px;
@@ -446,3 +486,76 @@ body.dark-theme #closeModal:hover {
         font-size: 18px;
     }
 }
+
+/* 浅色主题样式 */
+body:not(.dark-theme) #result-left h3,
+body:not(.dark-theme) #result,
+body:not(.dark-theme) #result p,
+body:not(.dark-theme) #result .theme-text {
+    color: #333333;
+}
+
+/* 深色主题样式 */
+body.dark-theme #result-left h3,
+body.dark-theme #result,
+body.dark-theme #result p,
+body.dark-theme #result .theme-text {
+    color: #ecf0f1;
+}
+
+.next-holiday {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.next-holiday h3 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+#holidayInfo {
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+body.dark-theme .next-holiday {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+}
+
+.weather-info {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.weather-info h3 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+#holidayInfo {
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+body.dark-theme .weather-info {
+    background-color: #3a3a3a;
+    color: #ecf0f1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-theme .weather-info h3 {
+    color: #ecf0f1;
+}
+
