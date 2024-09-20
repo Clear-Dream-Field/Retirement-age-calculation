@@ -241,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (resultRight) {
         resultRight.addEventListener('click', function() {
             toggleTheme();
-            console.log('Right card clicked'); // 添加日志
+            console.log('Click on the card'); // 添加日志
         });
     } else {
         console.log('Right card element not found'); // 添加日志
